@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Watcoin</title>
+  <style>
+    body {
+      background-color: #222;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+
+    #container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    #faucet {
+      width: 200px;
+      height: 200px;
+      background-image: url(faucet.png);
+      background-size: contain;
+      cursor: pointer;
+    }
+
+    #faucet:active {
+      transform: scale(0.9);
+    }
+
+    #counter {
+      font-size: 32px;
+      margin-left: 10px;
+    }
+
+    body {
+  background-color: #171338;
+  color: #fff;
+}
+
+#faucet {
+  width: 200px;
+  height: 200px;
+  background-image: url(faucet.png);
+  background-size: contain;
+  cursor: pointer;
+}
+
+#faucet:active {
+  transform: scale(0.9);
+}
+
+#counter {
+  font-size: 32px;
+  margin-left: 10px;
+}
+
+.container {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   width: 100%;
+   height: 100vh;
+}
+
+.container img {
+  width: 100%;
+}
+
+.container .faucet {
+  width: 70%;
+}
+  </style>
+</head>
+<body>
+  <div id="container" class="container">
+    <div id="counter">0</div>
+    <div id="faucet">
+      <img src="2209798.png" alt="">
+    </div>
+  </div>
+
+  <script>
+    const faucet = document.getElementById('faucet');
+    const counter = document.getElementById('counter');
+
+    let count = 0;
+
+    faucet.addEventListener('click', () => {
+      count += 1;
+      counter.innerHTML = count;
+    });
+  </script>
+</body>
+</html>
