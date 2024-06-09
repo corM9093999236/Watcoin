@@ -1,103 +1,103 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8" />
-  <title>Watcoin</title>
-  <style>
-    body {
-      background-color: #171338;
-      color: #fff;
-      font-family: Arial, sans-serif;
-    }
-
-    #container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-
-    #faucet {
-      width: 200px;
-      height: 200px;
-      background-image: url(faucet.png);
-      background-size: contain;
-      cursor: pointer;
-    }
-
-    #faucet:active {
-      transform: scale(0.9);
-    }
-
-    #counter {
-      font-size: 32px;
-      margin-left: 10px;
-    }
-
-    #limit {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      font-size: 16px;
-      padding: 5px;
-      background-color: #333;
-      color: #fff;
-    }
-
-    .notification {
-      position: absolute;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 24px;
-      color: #0f0;
-      animation: fade-out 2s ease-in-out;
-    }
-
-    @keyframes fade-out {
-      0% {
+  <head>
+    <title>Watcoin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+      body {
+        background-color: #171338;
+        text-align: center;
+        font-family: Arial, sans-serif;
+        color: white;
+        cursor: pointer;
+      }
+      .crane {
+        width: 500px;
+        height: 500px;
+        background-image: url("2209798.png");
+        background-repeat: no-repeat;
+        margin: 100px auto;
+        cursor: pointer;
+        animation: scale 0.2s;
+      }
+      .crane:active {
+        transform: scale(0.9);
+      }
+      .counter {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, 0);
+        font-size: 50px;
+        font-weight: bold;
+      }
+      .limit {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        font-size: 20px;
+      }
+      .score {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 50px;
+        color: green;
+        opacity: 0;
+        transition: opacity 0.5s;
+      }
+      .score-active {
         opacity: 1;
       }
-      100% {
-        opacity: 0;
-        transform: translate(-50%, -50%) scale(0);
+
+      @keyframes scale {
+        0% {
+          transform: scale(1);
+        }
+        100% {
+          transform: scale(0.9);
+        }
       }
-    }
-  </style>
-</head>
-<body>
-  <div id="container">
-    <div id="limit">2000/2000</div>
-    <div id="counter">0</div>
-    <div id="faucet">
-      <img src="2209798.png" alt="">
-    </div>
-  </div>
 
-  <script>
-    const faucet = document.getElementById('faucet');
-    const counter = document.getElementById('counter');
-    const limit = document.getElementById('limit');
+    </style>
+  </head>
 
-    let count = 2000;
-    let limitCount = 2000;
+  <body>
+    <div class="crane"></div>
+    <div class="counter">0</div>
+    <div class="limit">2000/2000</div>
+    <div class="score"></div>
 
-    faucet.addEventListener('click', () => {
-      if (limitCount > 0) {
-        count -= 1;
-        limitCount -= 1;
-        counter.innerHTML = count;
-        limit.innerHTML = ${limitCount}/2000;
+    <script>
+      let crane = document.querySelector(".crane");
+      let counter = document.querySelector(".counter");
+      let limit = document.querySelector(".limit");
+      let score = document.querySelector(".score");
+      let count = 0;
+      let limitCount = 2000;
 
-        const notification = document.createElement('div');
-        notification.classList.add('notification');
-        notification.innerHTML = '+1';
-        faucet.appendChild(notification);
+      crane.addEventListener("click", function () {
+        if (limitCount > 0) {
+          count++;
+          counter.innerHTML = count;
+          limitCount--;
+          limit.innerHTML = limitCount + "/2000";
 
-        setTimeout(() => {
-          notification.remove();
-        }, 1000);
-      }
-    });
-  </script>
-</body>
+          score.innerHTML = "+1";
+          score.classList.add("score-active");
+          setTimeout(function () {
+            score.classList.remove("score-active");
+          }, 500);
+        }
+      });
+
+      setInterval(function () {
+        if (limitCount < 2000) {
+          limitCount++;
+          limit.innerHTML = limitCount + "/2000";
+        }
+      }, 1000);
+    </script>
+  </body>
 </html>
