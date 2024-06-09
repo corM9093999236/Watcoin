@@ -34,44 +34,39 @@
       margin-left: 10px;
     }
 
-    body {
-  background-color: #171338;
-  color: #fff;
-}
+    #limit {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      font-size: 16px;
+      padding: 5px;
+      background-color: #333;
+      color: #fff;
+    }
 
-#faucet {
-  width: 200px;
-  height: 200px;
-  background-image: url(faucet.png);
-  background-size: contain;
-  cursor: pointer;
-}
+    .notification {
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 24px;
+      color: #0f0;
+      animation: fade-out 2s ease-in-out;
+    }
 
-#faucet:active {
-  transform: scale(0.9);
-}
-
-#counter {
-  font-size: 300%;
-}
-
-.container {
-   display: flex;
-   flex-direction: column;
-   justify-content: center;
-   align-items: center;
-   width: 100%;
-   height: 100vh;
-}
-
-.container img {
-  width: 300%;
-}
-
+    @keyframes fade-out {
+      0% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0);
+      }
+    }
   </style>
 </head>
 <body>
-  <div id="container" class="container">
+  <div id="container">
+    <div id="limit">2000/2000</div>
     <div id="counter">0</div>
     <div id="faucet">
       <img src="2209798.png" alt="">
@@ -81,12 +76,27 @@
   <script>
     const faucet = document.getElementById('faucet');
     const counter = document.getElementById('counter');
+    const limit = document.getElementById('limit');
 
     let count = 0;
+    let limitCount = 2000;
 
     faucet.addEventListener('click', () => {
-      count += 1;
-      counter.innerHTML = count;
+      if (limitCount > 0) {
+        count += 1;
+        limitCount -= 1;
+        counter.innerHTML = count;
+        limit.innerHTML = ${limitCount}/2000;
+
+        const notification = document.createElement('div');
+        notification.classList.add('notification');
+        notification.innerHTML = '+1';
+        faucet.appendChild(notification);
+
+        setTimeout(() => {
+          notification.remove();
+        }, 1000);
+      }
     });
   </script>
 </body>
