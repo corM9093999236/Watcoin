@@ -5,7 +5,7 @@
   <title>Watcoin</title>
   <style>
     body {
-      background-color: #222;
+      background-color: #171338;
       color: #fff;
       font-family: Arial, sans-serif;
     }
@@ -78,12 +78,12 @@
     const counter = document.getElementById('counter');
     const limit = document.getElementById('limit');
 
-    let count = 0;
+    let count = 2000;
     let limitCount = 2000;
 
     faucet.addEventListener('click', () => {
       if (limitCount > 0) {
-        count += 1;
+        count -= 1;
         limitCount -= 1;
         counter.innerHTML = count;
         limit.innerHTML = ${limitCount}/2000;
