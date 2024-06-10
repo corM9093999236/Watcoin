@@ -59,6 +59,10 @@
       opacity: 1;
     }
 
+    button {
+      opacity: 0;
+    }
+
     @keyframes scale {
       0% {
         transform: scale(1);
@@ -82,9 +86,10 @@
 <body>
   <div class="container">
     <div class="crane"></div>
-    <div class="counter">0</div>
     <div class="limit">2000/2000</div>
     <div class="score"></div>
+    <div class="counter">0</div>
+    
 
     <form action="save-result.php" method="post">
       <input type="hidden" name="count" value="0">
