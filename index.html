@@ -13,6 +13,11 @@
       font-family: Arial, sans-serif;
       color: white;
       cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
     }
 
     .crane {
@@ -76,7 +81,9 @@
 <body>
   <div class="crane"></div>
   <div class="counter">0</div>
-  <div class="limit">2000/2000</div>
+  <div class="limit">
+    <p>2000/2000</p>
+  </div>
   <div class="score"></div>
 
   <script>
