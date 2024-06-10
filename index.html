@@ -1,103 +1,116 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Watcoin</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <style>
-      body {
-        background-color: #171338;
-        text-align: center;
-        font-family: Arial, sans-serif;
-        color: white;
-        cursor: pointer;
-      }
-      .crane {
-        width: 900px;
-        height: 900px;
-        background-image: url("2209798.png");
-        background-repeat: no-repeat;
-        margin: 100px auto;
-        cursor: pointer;
-        animation: scale 0.3s;
-      }
-      .crane:active {
-        transform: scale(3);
-      }
-      .counter {
-        position: absolute;
-        top: 0;
-        left: 50%;
-        transform: translate(-50%, 0);
-        font-size: 50px;
-        font-weight: bold;
-      }
-      .limit {
-        position: absolute;
-        top: 25%
-        left: 50%;
-        font-size: 100px;
-      }
-      .score {
-        position: absolute;
-        top: 20%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 100px;
-        color: green;
-        opacity: 0;
-        transition: opacity 0.5s;
-      }
-      .score-active {
-        opacity: 1;
+
+<head>
+  <title>Watcoin</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    body {
+      width: 1200px;
+      height: 100vh;
+      background-color: #171338;
+      text-align: center;
+      font-family: Arial, sans-serif;
+      color: white;
+      cursor: pointer;
+    }
+
+    .crane {
+      width: 900px;
+      height: 900px;
+      background-image: url("2209798.png");
+      background-repeat: no-repeat;
+      margin: 100px auto;
+      cursor: pointer;
+      animation: scale 0.3s;
+    }
+
+    .crane:active {
+      transform: scale(3);
+    }
+
+    .counter {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, 0);
+      font-size: 50px;
+      font-weight: bold;
+    }
+
+    .limit {
+      position: absolute;
+      top: 25%;
+      left: 50%;
+      font-size: 100px;
+    }
+
+    .score {
+      position: absolute;
+      top: 20%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 100px;
+      color: green;
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+
+    .score-active {
+      opacity: 1;
+    }
+
+    @keyframes scale {
+      0% {
+        transform: scale(1);
       }
 
-      @keyframes scale {
-        0% {
-          transform: scale(1);
-        }
-        100% {
-          transform: scale(0.9);
-        }
+      100% {
+        transform: scale(0.9);
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="crane"></div>
+  <div class="counter">0</div>
+  <div class="limit">2000/2000</div>
+  <div class="score"></div>
+
+  <script>
+    let crane = document.querySelector(".crane");
+    let counter = document.querySelector(".counter");
+    let limit = document.querySelector(".limit");
+    let score = document.querySelector(".score");
+    let count = +localStorage.getItem("count") || 0;
+    let limitCount = 2000;
+
+    crane.addEventListener("click", function () {
+      if (limitCount > 0) {
+        count++;
+        counter.innerHTML = count;
+        limitCount--;
+        limit.innerHTML = limitCount + "/2000";
+
+        score.innerHTML = "+1";
+        score.classList.add("score-active");
+        setTimeout(function () {
+          score.classList.remove("score-active");
+        }, 500);
       }
 
-    </style>
-  </head>
+      localStorage.setItem("count", count);
+    });
 
-  <body>
-    <div class="crane"></div>
-    <div class="counter">0</div>
-    <div class="limit">2000/2000</div>
-    <div class="score"></div>
+    setInterval(function () {
+      if (limitCount < 2000) {
+        limitCount++;
+        limit.innerHTML = limitCount + "/2000";
+      }
+    }, 1000);
+  </script>
+</body>
 
-    <script>
-      let crane = document.querySelector(".crane");
-      let counter = document.querySelector(".counter");
-      let limit = document.querySelector(".limit");
-      let score = document.querySelector(".score");
-      let count = 0;
-      let limitCount = 2000;
-
-      crane.addEventListener("click", function () {
-        if (limitCount > 0) {
-          count++;
-          counter.innerHTML = count;
-          limitCount--;
-          limit.innerHTML = limitCount + "/2000";
-
-          score.innerHTML = "+1";
-          score.classList.add("score-active");
-          setTimeout(function () {
-            score.classList.remove("score-active");
-          }, 500);
-        }
-      });
-
-      setInterval(function () {
-        if (limitCount < 2000) {
-          limitCount++;
-          limit.innerHTML = limitCount + "/2000";
-        }
-      }, 1000);
-    </script>
-  </body>
 </html>
