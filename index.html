@@ -3,21 +3,22 @@
 
 <head>
   <title>Watcoin</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <style>
     body {
-      width: 1200px;
-      height: 100vh;
       background-color: #171338;
       text-align: center;
       font-family: Arial, sans-serif;
       color: white;
       cursor: pointer;
+    }
+
+    .container {
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       text-align: center;
+      height: 100vh;
     }
 
     .crane {
@@ -25,7 +26,7 @@
       height: 900px;
       background-image: url("2209798.png");
       background-repeat: no-repeat;
-      margin: 100px auto;
+      margin: 0 auto;
       cursor: pointer;
       animation: scale 0.3s;
     }
@@ -35,27 +36,19 @@
     }
 
     .counter {
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translate(-50%, 0);
       font-size: 50px;
       font-weight: bold;
+      margin-bottom: 20px;
     }
 
     .limit {
       position: absolute;
-      top: 25%;
-      left: 50%;
+      left: 0;
+      top: 0;
       font-size: 100px;
-      margin: 10%;
     }
 
     .score {
-      position: absolute;
-      top: 20%;
-      left: 50%;
-      transform: translate(-50%, -50%);
       font-size: 100px;
       color: green;
       opacity: 0;
@@ -72,7 +65,14 @@
       }
 
       100% {
-        transform: scale(2);
+        transform: scale(0.9);
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      .limit {
+        position: static;
+        margin-bottom: 20px;
       }
     }
 
@@ -80,19 +80,25 @@
 </head>
 
 <body>
-  <div class="crane"></div>
-  <div class="counter">0</div>
-  <div class="limit">
-    <p>2000/2000</p>
+  <div class="container">
+    <div class="crane"></div>
+    <div class="counter">0</div>
+    <div class="limit">2000/2000</div>
+    <div class="score"></div>
+
+    <form action="save-result.php" method="post">
+      <input type="hidden" name="count" value="0">
+      <input type="hidden" name="limit" value="0">
+      <button type="submit">Сохранить результат</button>
+    </form>
   </div>
-  <div class="score"></div>
 
   <script>
     let crane = document.querySelector(".crane");
     let counter = document.querySelector(".counter");
     let limit = document.querySelector(".limit");
     let score = document.querySelector(".score");
-    let count = +localStorage.getItem("count") || 0;
+    let count = 0;
     let limitCount = 2000;
 
     crane.addEventListener("click", function () {
@@ -109,7 +115,9 @@
         }, 500);
       }
 
+      // Сохраняем обновленные значения счетчика и лимита в локальном хранилище
       localStorage.setItem("count", count);
+      localStorage.setItem("limit", limitCount);
     });
 
     setInterval(function () {
@@ -118,6 +126,18 @@
         limit.innerHTML = limitCount + "/2000";
       }
     }, 1000);
+
+    // Загружаем сохраненные значения из локального хранилища
+    let savedCount = +localStorage.getItem("count") || 0;
+    let savedLimit = +localStorage.getItem("limit") || 2000;
+
+    // Устанавливаем сохраненные значения счетчика и лимита
+    count = savedCount;
+    limitCount = savedLimit;
+
+    // Обновляем счетчик и лимит на странице
+    counter.innerHTML = count;
+    limit.innerHTML = limitCount + "/2000";
   </script>
 </body>
 
