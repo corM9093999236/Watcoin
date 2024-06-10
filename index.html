@@ -5,80 +5,81 @@
   <title>Watcoin</title>
   <style>
     body {
-      background-color: #171338;
-      text-align: center;
-      font-family: Arial, sans-serif;
-      color: white;
-      cursor: pointer;
-    }
+  background-color: #171338;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  color: white;
+  cursor: default;
+}
 
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      height: 100vh;
-    }
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100vh;
+}
 
-    .crane {
-      width: 900px;
-      height: 900px;
-      background-image: url("2209798.png");
-      background-repeat: no-repeat;
-      margin: 0 auto;
-      cursor: pointer;
-      animation: scale 0.3s;
-    }
+.score {
+  z-index: 4;
+  font-size: 100px;
+  color: green;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
 
-    .crane:active {
-      transform: scale(3);
-    }
+.crane {
+  z-index: 3;
+  width: 900px;
+  height: 900px;
+  background-image: url("2209798.png");
+  background-repeat: no-repeat;
+  margin: 0 auto;
+  cursor: pointer;
+  animation: scale 0.3s;
+}
 
-    .counter {
-      font-size: 50px;
-      font-weight: bold;
-      margin-bottom: 20px;
-    }
+.counter {
+  z-index: 2;
+  font-size: 50px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
 
-    .limit {
-      position: absolute;
-      left: 0;
-      top: 0;
-      font-size: 100px;
-    }
+.limit {
+  z-index: 1;
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 100px;
+}
 
-    .score {
-      font-size: 100px;
-      color: green;
-      opacity: 0;
-      transition: opacity 0.5s;
-    }
+.score-active {
+  opacity: 1;
+}
 
-    .score-active {
-      opacity: 1;
-    }
+button {
+  opacity: 0;
+}
 
-    button {
-      opacity: 0;
-    }
+@keyframes scale {
+  0% {
+    transform: scale(1);
+  }
 
-    @keyframes scale {
-      0% {
-        transform: scale(1);
-      }
+  100% {
+    transform: scale(0.9);
+  }
+}
 
-      100% {
-        transform: scale(0.9);
-      }
-    }
+@media screen and (max-width: 768px) {
+  .limit {
+    position: static;
+    margin-bottom: 20px;
+  }
+}
 
-    @media screen and (max-width: 768px) {
-      .limit {
-        position: static;
-        margin-bottom: 20px;
-      }
-    }
 
   </style>
 </head>
