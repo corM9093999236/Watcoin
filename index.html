@@ -5,82 +5,97 @@
   <title>Watcoin</title>
   <style>
     body {
-  background-color: #171338;
-  text-align: center;
-  font-family: Arial, sans-serif;
-  color: white;
-  cursor: default;
-}
+      background-color: #171338;
+      text-align: center;
+      font-family: Arial, sans-serif;
+      color: white;
+      cursor: default;
+    }
 
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  height: 100vh;
-}
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      height: 100vh;
+    }
 
-.score {
-  z-index: 4;
-  font-size: 100px;
-  color: green;
-  opacity: 0;
-  transition: opacity 0.5s;
-}
+    .score {
+      z-index: 4;
+      font-size: 100px;
+      color: green;
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
 
-.crane {
-  z-index: 3;
-  width: 900px;
-  height: 900px;
-  background-image: url("2209798.png");
-  background-repeat: no-repeat;
-  margin: 0 auto;
-  cursor: pointer;
-  animation: scale 0.3s;
-}
+    .crane {
+      z-index: 3;
+      width: 900px;
+      height: 900px;
+      background-image: url("2209798.png");
+      background-repeat: no-repeat;
+      margin: 0 auto;
+      cursor: pointer;
+      animation: scale 0.3s;
+    }
 
-.counter {
-  z-index: 2;
-  font-size: 50px;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
+    .counter {
+      z-index: 2;
+      font-size: 50px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
 
-.limit {
-  z-index: 1;
-  position: absolute;
-  left: 0;
-  top: 0;
-  font-size: 100px;
-}
+    .limit {
+      z-index: 1;
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-size: 100px;
+    }
 
-.score-active {
-  opacity: 1;
-}
+    .score-active {
+      opacity: 1;
+    }
 
-.op {
-  opacity: 0;
-}
+    .op {
+      opacity: 0;
+    }
 
-@keyframes scale {
-  0% {
-    transform: scale(1);
-  }
+    @keyframes scale {
+      0% {
+        transform: scale(1);
+      }
 
-  100% {
-    transform: scale(0.9);
-  }
-}
+      100% {
+        transform: scale(0.9);
+      }
+    }
 
-@media screen and (max-width: 768px) {
-  .limit {
-    position: static;
-    margin-bottom: 20px;
-  }
-}
+    @media screen and (max-width: 768px) {
+      .limit {
+        position: static;
+        margin-bottom: 20px;
+      }
+    }
 
+    .menu {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 10px;
+      background-color: #171338;
+    }
 
+    .menu button {
+      padding: 5px 10px;
+      background-color: #0084ff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
   </style>
 </head>
 
@@ -90,13 +105,16 @@
     <div class="limit">2000/2000</div>
     <div class="score"></div>
     <div class="counter">0</div>
-    
 
     <form action="save-result.php" method="post">
       <input type="hidden" name="count" value="0">
       <input type="hidden" name="limit" value="0">
       <button type="submit" class="op">Сохранить результат</button>
     </form>
+  </div>
+
+  <div class="menu">
+    <button class="boost-button">Boost</button>
   </div>
 
   <script>
@@ -121,7 +139,6 @@
         }, 500);
       }
 
-      // Сохраняем обновленные значения счетчика и лимита в локальном хранилище
       localStorage.setItem("count", count);
       localStorage.setItem("limit", limitCount);
     });
@@ -133,17 +150,19 @@
       }
     }, 1000);
 
-    // Загружаем сохраненные значения из локального хранилища
-    let savedCount = +localStorage.getItem("count") || 0;
-    let savedLimit = +localStorage.getItem("limit") || 2000;
+    let savedCount = +localStorage.getItem("count") 0;
+    let savedLimit = +localStorage.getItem("limit") 2000;
 
-    // Устанавливаем сохраненные значения счетчика и лимита
     count = savedCount;
     limitCount = savedLimit;
 
     // Обновляем счетчик и лимит на странице
     counter.innerHTML = count;
     limit.innerHTML = limitCount + "/2000";
+
+    document.querySelector(".boost-button").addEventListener("click", function () {
+      window.location.href = "boost.html";
+    });
   </script>
 </body>
 
