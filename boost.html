@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Boost</title>
+  <style>
+
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Boost</h1>
+
+    <div class="boost-options">
+      <div class="boost-option">
+        <h2>Multitap</h2>
+        <p>+1 очко за нажатие</p>
+        <button class="boost-button" data-level="2">Перейти на следующий уровень</button>
+      </div>
+
+      <div class="boost-option">
+        <h2>Energy</h2>
+        <p>+100 к лимиту</p>
+        <button class="boost-button" data-cost="200" data-level="2">Добавить 100 к энергии</button>
+      </div>
+    </div>
+
+    <form action="save-boost.php" method="post">
+      <input type="hidden" name="multitap" value="1">
+      <input type="hidden" name="energy" value="1000">
+      <button type="submit">Сохранить</button>
+    </form>
+  </div>
+
+  <script>
+    // Добавляем обработчики событий для кнопок "Перейти на следующий уровень" и "Добавить 100 к энергии"
+    document.querySelectorAll(".boost-button").forEach(function (button) {
+      button.addEventListener("click", function () {
+        let level = parseInt(button.dataset.level);
+
+        // Обновляем значения мультитапа или энергии
+        if (button.parentElement.querySelector("h2").textContent === "Multitap") {
+          document.querySelector("input[name='multitap']").value = level + 1;
+        } else if (button.parentElement.querySelector("h2").textContent === "Energy") {
+          document.querySelector("input[name='energy']").value = 1000 + 100 * level;
+        }
+
+        // Сохраняем обновленные значения
+        document.querySelector("form").submit();
+      });
+    });
+  </script>
+</body>
+
+</html>
